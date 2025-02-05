@@ -7,14 +7,31 @@
     display: flex;
     justify-content: center;
     margin: 100px auto;
+    width: 200px;
+    flex-direction: column;
 }
-.main button {
+.addBox {
     padding: 10px 30px;
     border: solid 1px black;
     text-transform: uppercase;
     border-radius: 3px;
+    margin: 0 20px;
+}
+.main button {
+    padding: 10px;
 }
 .main button:hover {
     color: black;
     background-color: rgb(143, 143, 143, 0.3);
+}
+.main li {
+    text-align: center;
+    list-style-type: none;
+    margin-top: 10px;
+}
+.main li button {
+    margin: 0 10px;
+    padding: 7px 12px;
+    border-radius: 3px;
+    border: solid 1px black;
 }
