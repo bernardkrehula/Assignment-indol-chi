@@ -1,56 +1,56 @@
 let main = document.querySelector('.main');
 let btn = document.querySelector('.main button');
-let listBtn = document.querySelectorAll('.main ul li button');
+let list = document.querySelectorAll('.main li');
+let minus = document.querySelector('.minus');
+let resultNumber = document.querySelector('.number');
+let plus = document.querySelector('.plus');
+let chosenLi = document.querySelector('.chosen');
 
 let number = 0;
 
-let plus;
-let minus;
-
+let activeIndex;
 btn.addEventListener('click', () => {
     createNewBox();
+    listenForList()
 })
 
 
 function createNewBox() {
     let createList = document.createElement('li');
     main.appendChild(createList);
-    listBtn = document.querySelectorAll('.main li button');
-    if(listBtn.length < 9) {
-        for(i = 0; i < 3; i++) {
-            let createBtn = document.createElement('button');
-            createList.appendChild(createBtn);
-        }
-    }
-    defineButtons();
-    activatePlus();
-    activteMinus();
+    list = document.querySelectorAll('.main li');
+    
+    let createMinus = document.createElement('button');
+    let createNumber = document.createElement('button');
+    let createPlus = document.createElement('button');
+
+    createList.appendChild(createMinus).className = 'minus';
+    createList.appendChild(createNumber).className = 'number';
+    createList.appendChild(createPlus).className = 'plus';
+
+    createMinus.innerHTML = '-';
+    createNumber.innerHTML = 0;
+    createPlus.innerHTML = '+';
+
+}
+function addValue() {
+    
 }
 
-function defineButtons() {
-    listBtn = document.querySelectorAll('.main li button');
-    listBtn[0].innerHTML = '-';
-    listBtn[1].innerHTML = 0;
-    listBtn[2].innerHTML = '+';
-    //console.log(listBtn)
+function subtractValue() {
+   
 }
-
-function activatePlus() {
-    plus = listBtn[2];
-    plus.addEventListener('click', () => {
-        if(number >= 0){
-            number += 1;
-            console.log(number)
-        }
+function listenForList () {
+    list.forEach((element) => {
+        element.addEventListener('click', () => {
+            list.forEach((el) => el.className = '');
+            element.classList.add('chosen');
+        })
     })
 }
-   
-function activteMinus() {
-    minus = listBtn[0];
+function workInChosen() {
+    minus = document.querySelector('.chosen button.minus');
     minus.addEventListener('click', () => {
-        if(number >= 0) {
-            number -= 1;
-            console.log(number)
-        }
+        console.log(minus)
     })
 }
