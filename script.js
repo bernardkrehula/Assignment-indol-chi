@@ -21,95 +21,71 @@ Uz pomocu tog id nades counter u arrayu allCounters
 Povecas ili smanjis njegov counter
 Updejtujes textContent kutije
 */ 
-let id = 0;
 
 let allCounters = [];
 
-function createBoxes(id, counter) {
-    this.id = id;
-    this.counter = counter;
-}
-function updateId() {
-    id++;
-}
-function appendId() {
-    list.forEach((element, index) => {
-        index += 1;
-        if(index === id){
-            element.id = id;
-        }
-    })
-}
 
-function pushObjects(boxes) {
-    allCounters.push(boxes)
+function pushObjects(box) {
+    allCounters.push(box)
 }
 
 
 btn.addEventListener('click', () => {
-    createNewBox()
-    updateId()
-    const boxes = new createBoxes(id, 0);
-    pushObjects(boxes)
-    createBoxes();
-    appendId()
-    checkListId()
-    activateFindCounter()
+    const counter = { id: crypto.randomUUID(), value: 0}
+    pushObjects(counter);
+    //console.log(allCounters)
+    createNewBox(counter) 
 })
-function createNewBox() {
-    let createList = document.createElement('li');
-    main.appendChild(createList);
-    list = document.querySelectorAll('.main li');
-    
+function createNewBox(counter) {
+    let listElement = document.createElement('li');
+    listElement.id = counter.id;
+
     let createMinus = document.createElement('button');
     let createNumber = document.createElement('button');
     let createPlus = document.createElement('button');
 
-    createList.appendChild(createMinus).className = 'minus';
-    createList.appendChild(createNumber).className = 'number';
-    createList.appendChild(createPlus).className = 'plus';
-
     createMinus.innerHTML = '-';
-    createNumber.innerHTML = 0;
+    createNumber.innerHTML = counter.value;
     createPlus.innerHTML = '+';
 
-    minus = document.querySelector('.minus');
-    resultNumber = document.querySelector('.number');
-    plus = document.querySelector('.plus');
-}
-
-function addValue() {
-    number += 1;
-    console.log(number)
-}
-
-function subtractValue() {
-    number -= 1;
-    console.log(number)
-}
-
-let counterId = 1;
-function checkListId() {
-    list = document.querySelectorAll('.main li');
-    list.forEach((element) => 
-        element.addEventListener('click', (event) => {
-        let li = event.target.closest('li').id;
-        counterId = li;
-        let el = event.target.closest('.plus');
-        console.log(el)
+    createPlus.addEventListener('click', function (event) {
+        event.target.value;
+        let listEl = event.target.closest('li').id;
+        const findValue = allCounters.find(getValue);
+        function getValue(box) {
+            if(box.id == listEl) {
+                box.value++;
+                createNumber.textContent = box.value;
+            }
+        } 
     })
-)
-}
-function activateFindCounter() {
-    const getObject = allCounters.find(findCounter);
-    function findCounter(box) {
-        if(box.id == counterId){
-        }
-    }
-}
-function createCounter() {
-    let counter;
-    const getCounter = () => counter;
-    const setCounter = (value) => counter = value;
-    return { getCounter, setCounter};
+    createMinus.addEventListener('click', function(event) {
+        event.target.value;
+        let listEl = event.target.closest('li').id;
+        const findValue = allCounters.find(getValue);
+        function getValue(box) {
+            if(box.id == listEl) {
+                box.value--;
+                createNumber.textContent = box.value;
+            }
+        } 
+    })
+
+    createMinus.classList.add('minus');
+    createNumber.classList.add('number');
+    createPlus.classList.add('plus');
+    
+    listElement.appendChild(createMinus);
+    listElement.appendChild(createNumber);
+    listElement.appendChild(createPlus);
+
+    main.appendChild(listElement);
+
+   
+    //Stavi eventlistenere na plus i minus
+    //Uz pomoc closest metode nadi list element 
+    //Procitaj id sa tog list elementa
+    //Uz pomoc find metode pronadi objekat sa tim id unutar arraya allCounters
+    //Updejtuj mu .value
+    //Updejtuj text content te kutije na ekranu
 }
