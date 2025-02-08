@@ -21,14 +21,14 @@ Uz pomocu tog id nades counter u arrayu allCounters
 Povecas ili smanjis njegov counter
 Updejtujes textContent kutije
 */ 
-let activeIndex;
+let id = 0;
+
 let allCounters = [];
 
 function createBoxes(id, counter) {
     this.id = id;
     this.counter = counter;
 }
-let id = 0;
 function updateId() {
     id++;
 }
@@ -47,18 +47,15 @@ function pushObjects(boxes) {
 
 
 btn.addEventListener('click', () => {
-    createNewBox();
-    listenForList();
+    createNewBox()
     updateId()
     const boxes = new createBoxes(id, 0);
     pushObjects(boxes)
     createBoxes();
     appendId()
-    clickPlus()
-    console.log(allCounters)
+    checkListId()
     activateFindCounter()
 })
-
 function createNewBox() {
     let createList = document.createElement('li');
     main.appendChild(createList);
@@ -90,36 +87,26 @@ function subtractValue() {
     number -= 1;
     console.log(number)
 }
-function listenForList () {
-    list.forEach((element) => {
-        element.addEventListener('click', () => {
-            list.forEach((el) => el.className = '');
-            element.classList.add('chosen');
-        })
-    })
-}
+
 let counterId = 1;
-function clickPlus() {
+function checkListId() {
     list = document.querySelectorAll('.main li');
     list.forEach((element) => 
         element.addEventListener('click', (event) => {
         let li = event.target.closest('li').id;
         counterId = li;
+        let el = event.target.closest('.plus');
+        console.log(el)
     })
 )
 }
 function activateFindCounter() {
-    const res = allCounters.find(findCounter)
+    const getObject = allCounters.find(findCounter);
     function findCounter(box) {
         if(box.id == counterId){
-            console.log()
-            return counterId;
         }
     }
-    console.log(res)
-    console.log(counterId)
 }
-
 function createCounter() {
     let counter;
     const getCounter = () => counter;
