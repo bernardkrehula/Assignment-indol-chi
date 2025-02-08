@@ -41,20 +41,22 @@ function appendId() {
     })
 }
 
-function pushObjects(counters) {
-    allCounters.push(counters)
+function pushObjects(boxes) {
+    allCounters.push(boxes)
 }
+
 
 btn.addEventListener('click', () => {
     createNewBox();
     listenForList();
     updateId()
-    const counters = new createBoxes(id, 0);
-    pushObjects(counters)
+    const boxes = new createBoxes(id, 0);
+    pushObjects(boxes)
     createBoxes();
     appendId()
-    clickSubtract()
+    clickPlus()
     console.log(allCounters)
+    activateFindCounter()
 })
 
 function createNewBox() {
@@ -96,16 +98,27 @@ function listenForList () {
         })
     })
 }
-function clickSubtract() {
-    plus = document.querySelectorAll('.plus');
-    plus.forEach((element) => 
+let counterId = 1;
+function clickPlus() {
+    list = document.querySelectorAll('.main li');
+    list.forEach((element) => 
         element.addEventListener('click', (event) => {
         let li = event.target.closest('li').id;
-        console.log(li)
+        counterId = li;
     })
 )
 }
-
+function activateFindCounter() {
+    const res = allCounters.find(findCounter)
+    function findCounter(box) {
+        if(box.id == counterId){
+            console.log()
+            return counterId;
+        }
+    }
+    console.log(res)
+    console.log(counterId)
+}
 
 function createCounter() {
     let counter;
