@@ -21,37 +21,39 @@ Uz pomocu tog id nades counter u arrayu allCounters
 Povecas ili smanjis njegov counter
 Updejtujes textContent kutije
 */ 
-
+let activeIndex;
 let allCounters = [];
-
-const object = {
-    
-}
-let id = 0;
-function updateId() {
-    id++;
-}
 
 function createBoxes(id, counter) {
     this.id = id;
     this.counter = counter;
 }
+let id = 0;
+function updateId() {
+    id++;
+}
+function appendId() {
+    list.forEach((element, index) => {
+        index += 1;
+        if(index === id){
+            element.id = id;
+        }
+    })
+}
 
-
-//const counterTwo = new createNewBoxes(2, 0);
-//const counterThree = new createNewBoxes(3, 0);
-
-function pushObjects(counterOne) {
-    allCounters.push(counterOne)
+function pushObjects(counters) {
+    allCounters.push(counters)
 }
 
 btn.addEventListener('click', () => {
     createNewBox();
     listenForList();
     updateId()
-    const counterOne = new createBoxes(id, 0);
-    pushObjects(counterOne)
+    const counters = new createBoxes(id, 0);
+    pushObjects(counters)
     createBoxes();
+    appendId()
+    clickSubtract()
     console.log(allCounters)
 })
 
@@ -75,10 +77,8 @@ function createNewBox() {
     minus = document.querySelector('.minus');
     resultNumber = document.querySelector('.number');
     plus = document.querySelector('.plus');
-
-    plus.addEventListener('click', () => { addValue() })
-    minus.addEventListener('click', () => { subtractValue() })
 }
+
 function addValue() {
     number += 1;
     console.log(number)
@@ -96,6 +96,16 @@ function listenForList () {
         })
     })
 }
+function clickSubtract() {
+    plus = document.querySelectorAll('.plus');
+    plus.forEach((element) => 
+        element.addEventListener('click', (event) => {
+        let li = event.target.closest('li').id;
+        console.log(li)
+    })
+)
+}
+
 
 function createCounter() {
     let counter;
