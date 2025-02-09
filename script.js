@@ -31,6 +31,7 @@ function createNewBox(counter) {
     let createMinus = document.createElement('button');
     let createNumber = document.createElement('button');
     let createPlus = document.createElement('button');
+    let createTrashCan = document.createElement('img');
 
     createMinus.innerHTML = '-';
     createNumber.innerHTML = counter.value;
@@ -61,14 +62,22 @@ function createNewBox(counter) {
         marblesCount--;
         marbles.textContent = marblesCount;
     })
+    
+    menu = document.querySelector('.menu');
+    createTrashCan.addEventListener('click', (event) => {
+        let trash = event.target.closest('li');
+        menu.removeChild(trash);
+    })
 
     createMinus.classList.add('minus');
     createNumber.classList.add('number');
     createPlus.classList.add('plus');
+    createTrashCan.src = 'trash-2.svg';
     
     listElement.appendChild(createMinus);
     listElement.appendChild(createNumber);
     listElement.appendChild(createPlus);
+    listElement.appendChild(createTrashCan);
 
     menu.appendChild(listElement);
 }
