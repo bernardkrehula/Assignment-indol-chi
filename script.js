@@ -61,12 +61,22 @@ function createNewBox(counter) {
 
         marblesCount--;
         marbles.textContent = marblesCount;
+
     })
-    
+
     menu = document.querySelector('.menu');
     createTrashCan.addEventListener('click', (event) => {
         let trash = event.target.closest('li');
+        let id = event.target.closest('li').id;
+        const currentCounter = allCounters.find((box) => {
+            return box.id == id;
+        })
+        marblesCount = marblesCount - currentCounter.value;
+
         menu.removeChild(trash);
+        boxesCount--;
+        boxes.textContent = boxesCount;
+        marbles.textContent = marblesCount;
     })
 
     createMinus.classList.add('minus');
