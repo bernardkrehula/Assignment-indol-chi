@@ -4,8 +4,7 @@ let list = document.querySelectorAll('.main li');
 let minus = document.querySelectorAll('.minus');
 let resultNumber = document.querySelector('.number');
 let plus = document.querySelector('.plus');
-let chosenLi = document.querySelector('.chosen');
-let colosestbtns = document.querySelectorAll('.main li button');
+let menu = document.querySelector('.menu');
 /*
 Napravi array allCounters = []
 Na click dugmeta addNewBox napravi objekat = {id: 1, counter: 0}
@@ -59,7 +58,7 @@ function createNewBox(counter) {
 
     createMinus.addEventListener('click', function(event) {
         let id = event.target.closest('li').id;
-        
+
         const currentCounter = allCounters.find((box) => {
             return box.id == id;
         })
@@ -75,13 +74,5 @@ function createNewBox(counter) {
     listElement.appendChild(createNumber);
     listElement.appendChild(createPlus);
 
-    main.appendChild(listElement);
-
-   
-    //Stavi eventlistenere na plus i minus
-    //Uz pomoc closest metode nadi list element 
-    //Procitaj id sa tog list elementa
-    //Uz pomoc find metode pronadi objekat sa tim id unutar arraya allCounters
-    //Updejtuj mu .value
-    //Updejtuj text content te kutije na ekranu
+    menu.appendChild(listElement);
 }

@@ -3,10 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-.main {
+.menu {
     display: flex;
     text-align: center;
-    margin: 50px auto;
+    margin: 0 auto;
     width: 200px;
     flex-direction: column;
 }
@@ -17,29 +17,37 @@
     border-radius: 3px;
     margin: 0 20px;
 }
-.main button {
+.menu button {
     padding: 10px;
 }
-.main button:hover {
+.menu button:hover {
     color: black;
     background-color: rgb(143, 143, 143, 0.3);
 }
-.main li {
+.menu li {
     text-align: center;
     list-style-type: none;
     margin-top: 10px;
 }
-.main li button {
+.menu li button {
     margin: 0 10px;
     padding: 7px 12px;
     border-radius: 3px;
     border: solid 1px black;
 }
+.boxes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+} 
 .main h3 {
     font-weight: 500;
-    margin-bottom: 5px;
 }
-.main h2 {
-    font-weight: 500;
+.marbles {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
     margin-bottom: 15px;
 }
