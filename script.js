@@ -33,7 +33,6 @@ function pushObjects(box) {
 btn.addEventListener('click', () => {
     const counter = { id: crypto.randomUUID(), value: 0}
     pushObjects(counter);
-    //console.log(allCounters)
     createNewBox(counter) 
 })
 function createNewBox(counter) {
@@ -49,26 +48,23 @@ function createNewBox(counter) {
     createPlus.innerHTML = '+';
 
     createPlus.addEventListener('click', function (event) {
-        event.target.value;
-        let listEl = event.target.closest('li').id;
-        const findValue = allCounters.find(getValue);
-        function getValue(box) {
-            if(box.id == listEl) {
-                box.value++;
-                createNumber.textContent = box.value;
-            }
-        } 
-    })
+        let id = event.target.closest('li').id;
+
+        const currentCounter = allCounters.find((box) => {
+            return box.id == id;
+        })
+        currentCounter.value++;
+        createNumber.textContent = currentCounter.value;
+        })
+
     createMinus.addEventListener('click', function(event) {
-        event.target.value;
-        let listEl = event.target.closest('li').id;
-        const findValue = allCounters.find(getValue);
-        function getValue(box) {
-            if(box.id == listEl) {
-                box.value--;
-                createNumber.textContent = box.value;
-            }
-        } 
+        let id = event.target.closest('li').id;
+        
+        const currentCounter = allCounters.find((box) => {
+            return box.id == id;
+        })
+        currentCounter.value--;
+        createNumber.textContent = currentCounter.value;
     })
 
     createMinus.classList.add('minus');
