@@ -7,12 +7,16 @@ let plus = document.querySelector('.plus');
 let menu = document.querySelector('.menu');
 let marbles = document.querySelector('.marbles-count');
 let boxes = document.querySelector('.box-count');
+let text = document.querySelector('.menu h4')
 
 let allCounters = [];
 
 let boxesCount = 0;
 
 let marblesCount = 0;
+
+boxes.textContent = boxesCount;
+marbles.textContent = marblesCount;
 
 function pushObjects(box) {
     allCounters.push(box)
@@ -23,6 +27,7 @@ btn.addEventListener('click', () => {
     pushObjects(counter);
     createNewBox(counter);
     countBoxes()
+    noVisibleBoxes()
 })
 function createNewBox(counter) {
     let listElement = document.createElement('li');
@@ -61,22 +66,25 @@ function createNewBox(counter) {
 
         marblesCount--;
         marbles.textContent = marblesCount;
-
     })
 
     menu = document.querySelector('.menu');
     createTrashCan.addEventListener('click', (event) => {
         let trash = event.target.closest('li');
         let id = event.target.closest('li').id;
+
         const currentCounter = allCounters.find((box) => {
             return box.id == id;
         })
-        marblesCount = marblesCount - currentCounter.value;
+
+        marblesCount -= currentCounter.value;
 
         menu.removeChild(trash);
         boxesCount--;
         boxes.textContent = boxesCount;
         marbles.textContent = marblesCount;
+
+        noVisibleBoxes()
     })
 
     createMinus.classList.add('minus');
@@ -96,4 +104,11 @@ function countBoxes() {
     list = document.querySelectorAll('.menu li');
     boxesCount = list.length;
     boxes.textContent = boxesCount;
+}
+function noVisibleBoxes() {
+    text.innerHTML = '';
+    if(boxesCount === 0) {
+        console.log('hello')
+        text.innerHTML = 'No marble boxes, yet';
+    }
 }
