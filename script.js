@@ -26,7 +26,8 @@ btn.addEventListener('click', () => {
     const counter = { id: crypto.randomUUID(), value: 0}
     pushObjects(counter);
     createNewBox(counter);
-    countBoxes()
+    getBoxesCount()
+    getMarblesCount()
     noVisibleBoxes()
 })
 function createNewBox(counter) {
@@ -52,8 +53,7 @@ function createNewBox(counter) {
         currentCounter.value++;
         createNumber.textContent = currentCounter.value;
 
-        marblesCount++;
-        marbles.textContent = marblesCount;
+        getMarblesCount();
         })
 
     createMinus.addEventListener('click', function(event) {
@@ -64,26 +64,14 @@ function createNewBox(counter) {
         currentCounter.value--;
         createNumber.textContent = currentCounter.value;
 
-        marblesCount--;
-        marbles.textContent = marblesCount;
+        getMarblesCount()
     })
 
     menu = document.querySelector('.menu');
     createTrashCan.addEventListener('click', (event) => {
         let trash = event.target.closest('li');
-        let id = event.target.closest('li').id;
-
-        const currentCounter = allCounters.find((box) => {
-            return box.id == id;
-        })
-
-        marblesCount -= currentCounter.value;
-
         menu.removeChild(trash);
-        boxesCount--;
-        boxes.textContent = boxesCount;
-        marbles.textContent = marblesCount;
-
+        getBoxesCount()
         noVisibleBoxes()
     })
 
@@ -98,17 +86,24 @@ function createNewBox(counter) {
     listElement.appendChild(createTrashCan);
 
     menu.appendChild(listElement);
+
 }
 
-function countBoxes() {
+function noVisibleBoxes() {
+    text.innerHTML = '';
+    if(boxesCount === 0) {
+        text.innerHTML = 'No marble boxes, yet';
+    }
+}
+function getBoxesCount() {
     list = document.querySelectorAll('.menu li');
     boxesCount = list.length;
     boxes.textContent = boxesCount;
 }
-function noVisibleBoxes() {
-    text.innerHTML = '';
-    if(boxesCount === 0) {
-        console.log('hello')
-        text.innerHTML = 'No marble boxes, yet';
+function getMarblesCount() {
+    let sum = 0;
+    for(let i in allCounters){
+        sum += allCounters[i].value;
     }
+    marbles.textContent = sum;
 }
