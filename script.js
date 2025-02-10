@@ -43,8 +43,6 @@ function createNewBox(counter) {
     createNumber.innerHTML = counter.value;
     createPlus.innerHTML = '+';
 
-    marbles = document.querySelector('.marbles-count');
-  
     createPlus.addEventListener('click', function (event) {
         let id = event.target.closest('li').id;
         const currentCounter = allCounters.find((box) => {
@@ -66,13 +64,12 @@ function createNewBox(counter) {
         getMarblesCount()
     })
 
-    menu = document.querySelector('.menu');
     createTrashCan.addEventListener('click', (event) => {
-        let trash = event.target.closest('li');
-        menu.removeChild(trash);
+        updateMarblesValue(event)
+        getMarblesCount()
+        deleteBox(event)
         getBoxesCount()
         noVisibleBoxes()
-        getMarblesCount() 
     })
 
     createMinus.classList.add('minus');
@@ -105,6 +102,17 @@ function getMarblesCount() {
     for(let i in allCounters){
         sum += allCounters[i].value;
     }
-    marbles.textContent = sum;
-    console.log(sum)
+    marblesCount = sum;
+    marbles.textContent = marblesCount;
+}
+function deleteBox(event) {
+    let trash = event.target.closest('li');
+    menu.removeChild(trash);
+}
+function updateMarblesValue(event) {
+    let id = event.target.closest('li').id;
+    const currentCounter = allCounters.find((box) => {
+        return box.id == id;
+    })
+    currentCounter.value = 0;
 }
