@@ -68,6 +68,7 @@ function createNewBox(counter) {
         getMarblesCount()
         deleteBox(event)
         noVisibleBoxes()
+        getBoxesCount()
     })
 
     createMinus.classList.add('minus');
@@ -90,8 +91,9 @@ function noVisibleBoxes() {
         text.innerHTML = 'No marble boxes, yet';
     }
 }
+
 function getBoxesCount() {
-    let boxesCount = allCounters.length;
+    boxesCount = allCounters.length;
     boxes.textContent = boxesCount;
 }
 function getMarblesCount() {
@@ -100,20 +102,21 @@ function getMarblesCount() {
         sum += allCounters[i].value;
     }
     marblesCount = sum;
+    appendMarblesCount()
+}
+
+function appendMarblesCount() {
     marbles.textContent = marblesCount;
 }
 function deleteBox(event) {
     let trash = event.target.closest('li');
-    let boxesCount;
     menu.removeChild(trash);
     allCounters.splice(0, 1);
-    boxesCount = allCounters.length;
-    boxes.textContent = boxesCount;
 }
 function updateMarblesValue(event) {
     let id = event.target.closest('li').id;
     const currentCounter = allCounters.find((box) => {
         return box.id == id;
     })
-    currentCounter.value = 0;
+    currentCounter.value = null;
 }
