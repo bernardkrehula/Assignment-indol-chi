@@ -97,11 +97,10 @@ function getBoxesCount() {
     boxes.textContent = boxesCount;
 }
 function getMarblesCount() {
-    let sum = 0;
-    for(let i in allCounters){
-        sum += allCounters[i].value;
-    }
-    marblesCount = sum;
+    const counterSum = allCounters.reduce((accumulator, sum) => {
+        return accumulator += sum.value;
+    },0)
+    marblesCount = counterSum;
     appendMarblesCount()
 }
 
