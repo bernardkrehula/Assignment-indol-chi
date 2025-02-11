@@ -50,7 +50,6 @@ function createNewBox(counter) {
         })
         currentCounter.value++;
         createNumber.textContent = currentCounter.value;
-        currentValue =  currentCounter.value;
         getMarblesCount();
         })
    
@@ -68,7 +67,6 @@ function createNewBox(counter) {
         updateMarblesValue(event)
         getMarblesCount()
         deleteBox(event)
-        getBoxesCount()
         noVisibleBoxes()
     })
 
@@ -93,8 +91,7 @@ function noVisibleBoxes() {
     }
 }
 function getBoxesCount() {
-    list = document.querySelectorAll('.menu li');
-    boxesCount = list.length;
+    let boxesCount = allCounters.length;
     boxes.textContent = boxesCount;
 }
 function getMarblesCount() {
@@ -107,7 +104,11 @@ function getMarblesCount() {
 }
 function deleteBox(event) {
     let trash = event.target.closest('li');
+    let boxesCount;
     menu.removeChild(trash);
+    allCounters.splice(0, 1);
+    boxesCount = allCounters.length;
+    boxes.textContent = boxesCount;
 }
 function updateMarblesValue(event) {
     let id = event.target.closest('li').id;
