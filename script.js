@@ -11,12 +11,11 @@ let text = document.querySelector('.menu h4')
 
 let allCounters = [];
 
-let marblesCount = 0;
-
 boxes.textContent = getBoxesCount();
 marbles.textContent = getMarblesCount();
 
 function pushObjects(box) {
+    const bernard = [];
     allCounters.push(box)
 }
 
@@ -28,6 +27,7 @@ btn.addEventListener('click', () => {
     marbles.textContent = getMarblesCount();
 })
 function createNewBox(counter) {
+    //Pogledaj insertAdjacentHTML
     let listElement = document.createElement('li');
     listElement.id = counter.id;
 
@@ -41,10 +41,9 @@ function createNewBox(counter) {
     createPlus.innerHTML = '+';
 
     createTrashCan.addEventListener('click', (event) => {
-        updateMarblesValue(event)
-        marbles.textContent = getMarblesCount();
         deleteBox(event)
-        getBoxesCount()
+        boxes.textContent =  getBoxesCount();
+        marbles.textContent = getMarblesCount();
     })
 
     createMinus.classList.add('minus');
@@ -76,52 +75,30 @@ function getMarblesCount() {
     },0)
     return counterSum;
 }
+let position;
 function deleteBox(event) {
     let trash = event.target.closest('li');
     menu.removeChild(trash);
-    allCounters.splice(0, 1);
+    allCounters.splice(position, 1);
+    console.log(allCounters)
+    console.log(position)
 }
-function updateMarblesValue(event) {
+menu.addEventListener('click', function (event) {
+    let currentList = event.target.closest('li');
+    let marblesNumber = currentList.querySelector('.number');
     let id = event.target.closest('li').id;
     const currentCounter = allCounters.find((box) => {
         return box.id == id;
     })
-    currentCounter.value = null;
-}
-
-menu.addEventListener('click', function (event) {
-    //console.log('click event se desava')
-    subtract(event);
-    addValue(event);
-    updateBoxesValue(event)
-
-
-
-
-    /*Provjeri ima li event target klasu minus 
-    Ako ima znas da je button minus
-    */ 
-})
-function subtract(event) {
     if(event.target.className == 'minus') {
-        let id = event.target.closest('li').id;
-        const currentCounter = allCounters.find((box) => {
-            return box.id == id;
-        })
         currentCounter.value--;
         marbles.textContent = getMarblesCount();
     }
-}
-function addValue(event) {
     if(event.target.className == 'plus') {
-        let id = event.target.closest('li').id;
-        const currentCounter = allCounters.find((box) => {
-            return box.id == id;
-        })
         currentCounter.value++;
         marbles.textContent = getMarblesCount();
     }
-}
-function updateBoxesValue(event) {
-    
-}
+    marblesNumber.textContent = currentCounter.value;
+    position = allCounters.indexOf(currentCounter);
+})
+
