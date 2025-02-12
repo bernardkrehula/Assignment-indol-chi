@@ -11,12 +11,10 @@ let text = document.querySelector('.menu h4')
 
 let allCounters = [];
 
-let boxesCount = 0;
-
 let marblesCount = 0;
 
-boxes.textContent = boxesCount;
-marbles.textContent = marblesCount;
+boxes.textContent = getBoxesCount();
+marbles.textContent = getMarblesCount();
 
 function pushObjects(box) {
     allCounters.push(box)
@@ -26,9 +24,8 @@ btn.addEventListener('click', () => {
     const counter = { id: crypto.randomUUID(), value: 0}
     pushObjects(counter);
     createNewBox(counter);
-    getBoxesCount()
-    getMarblesCount()
-    noVisibleBoxes()
+    boxes.textContent =  getBoxesCount();
+    marbles.textContent = getMarblesCount();
 })
 function createNewBox(counter) {
     let listElement = document.createElement('li');
@@ -43,31 +40,10 @@ function createNewBox(counter) {
     createNumber.innerHTML = counter.value;
     createPlus.innerHTML = '+';
 
-    createPlus.addEventListener('click', function (event) {
-        let id = event.target.closest('li').id;
-        const currentCounter = allCounters.find((box) => {
-            return box.id == id;
-        })
-        currentCounter.value++;
-        createNumber.textContent = currentCounter.value;
-        getMarblesCount();
-        })
-   
-    createMinus.addEventListener('click', function(event) {
-        let id = event.target.closest('li').id;
-        const currentCounter = allCounters.find((box) => {
-            return box.id == id;
-        })
-        currentCounter.value--;
-        createNumber.textContent = currentCounter.value;
-        getMarblesCount()
-    })
-
     createTrashCan.addEventListener('click', (event) => {
         updateMarblesValue(event)
-        getMarblesCount()
+        marbles.textContent = getMarblesCount();
         deleteBox(event)
-        noVisibleBoxes()
         getBoxesCount()
     })
 
@@ -82,30 +58,23 @@ function createNewBox(counter) {
     listElement.appendChild(createTrashCan);
 
     menu.appendChild(listElement);
-
 }
 
-function noVisibleBoxes() {
+/*function noVisibleBoxes() {
     text.innerHTML = '';
     if(boxesCount === 0) {
         text.innerHTML = 'No marble boxes, yet';
     }
-}
+}*/
 
 function getBoxesCount() {
-    boxesCount = allCounters.length;
-    boxes.textContent = boxesCount;
+    return allCounters.length;
 }
 function getMarblesCount() {
     const counterSum = allCounters.reduce((accumulator, sum) => {
         return accumulator += sum.value;
     },0)
-    marblesCount = counterSum;
-    appendMarblesCount()
-}
-
-function appendMarblesCount() {
-    marbles.textContent = marblesCount;
+    return counterSum;
 }
 function deleteBox(event) {
     let trash = event.target.closest('li');
@@ -118,4 +87,41 @@ function updateMarblesValue(event) {
         return box.id == id;
     })
     currentCounter.value = null;
+}
+
+menu.addEventListener('click', function (event) {
+    //console.log('click event se desava')
+    subtract(event);
+    addValue(event);
+    updateBoxesValue(event)
+
+
+
+
+    /*Provjeri ima li event target klasu minus 
+    Ako ima znas da je button minus
+    */ 
+})
+function subtract(event) {
+    if(event.target.className == 'minus') {
+        let id = event.target.closest('li').id;
+        const currentCounter = allCounters.find((box) => {
+            return box.id == id;
+        })
+        currentCounter.value--;
+        marbles.textContent = getMarblesCount();
+    }
+}
+function addValue(event) {
+    if(event.target.className == 'plus') {
+        let id = event.target.closest('li').id;
+        const currentCounter = allCounters.find((box) => {
+            return box.id == id;
+        })
+        currentCounter.value++;
+        marbles.textContent = getMarblesCount();
+    }
+}
+function updateBoxesValue(event) {
+    
 }
