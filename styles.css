@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+.main {
+    text-align: center;
+}
 .menu {
     display: flex;
     text-align: center;
