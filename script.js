@@ -72,6 +72,7 @@ menu.addEventListener('click', function (event) {
         menu.removeChild(currentList);
         allCounters.splice(position, 1);
         marbles.textContent = getMarblesCount();
+        noVisibleBoxes()
     }
     marblesNumber.textContent = currentCounter.value;
 })
