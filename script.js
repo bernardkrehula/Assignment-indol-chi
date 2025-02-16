@@ -30,7 +30,8 @@ function createNewBox(counter) {
     let listElement = document.createElement('li');
     listElement.id = counter.id;
     menu.appendChild(listElement)
-    listElement.insertAdjacentHTML('beforeend', `<button class="minus">-</button> <button class="number">${counter.value}</button> <button class="plus">+</button> <img class="trash" src="trash-2.svg">`);
+    const html = `<button class="minus">-</button> <button class="number">${counter.value}</button> <button class="plus">+</button> <img class="trash" src="trash-2.svg">`;
+    listElement.insertAdjacentHTML('beforeend', html);
 
 }
 
